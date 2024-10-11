@@ -35,9 +35,11 @@ class GameLogic:
         available_moves = [i for i, cell in enumerate(self.board) if cell == 0]
         move = random.choice(available_moves)
         self.board[move] = 1
+        print(f"\nComputador joga na posição {move + 1}")
 
     def check_winner(self):
         # Verifica todas as combinações de vitória
+
         winning_combinations = [
             [0, 1, 2],  # Linha 1
             [3, 4, 5],  # Linha 2

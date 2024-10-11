@@ -1,4 +1,6 @@
 from game_logic import GameLogic
+import numpy as np
+import pandas as pd
 
 class FrontEnd:
     def __init__(self, model):
@@ -25,7 +27,7 @@ class FrontEnd:
                 break
             
             # Imprimir resultados
-            print(f"Acertos: {self.acertos}, Erros: {self.erros}")
+            print(f"\nAcertos: {self.acertos}, Erros: {self.erros}")
 
             # Computador joga
             self.game.computer_move()
@@ -39,15 +41,20 @@ class FrontEnd:
                 game_over = True
                 break
             # Imprimir resultados
-            print(f"Acertos: {self.acertos}, Erros: {self.erros}")
+            print(f"\nAcertos: {self.acertos}, Erros: {self.erros}")
 
         # Imprimir resultados
-        print(f"Acertos: {self.acertos}, Erros: {self.erros}")
+        print(f"\nAcertos: {self.acertos}, Erros: {self.erros}")
 
     # Predição da IA
     def get_prediction(self):
+
+        # Transforma board no formato correto
+        columns = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        board_df = pd.DataFrame([self.game.board], columns=columns)
+        
         # Predição com o board
-        prediction = self.model.predict([self.game.board])[0]
+        prediction = self.model.predict(board_df)
         
         if prediction == 1:
             return 'Xganha'
